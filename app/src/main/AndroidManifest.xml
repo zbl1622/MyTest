@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.zbl.mytest">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.NFC" />
+
+    <uses-feature android:name="android.hardware.nfc" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+        </activity>
+        <activity android:name=".ViewTestActivity" />
+        <activity android:name=".PinchViewActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".SocketTestActivity" />
+        <activity android:name=".MulticastSocketTestActivity" />
+        <activity android:name=".ORMTestActivity" />
+        <activity android:name=".TestEquesActivity"></activity>
+        <activity android:name=".ShowTestActivity" />
+        <activity
+            android:name=".AutoScrollViewActivity"
+            android:label="@string/title_activity_auto_scroll_view"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <receiver
+            android:name=".appwidget.AppWidgetProvider_Scene"
+            android:exported="false"
+            android:label="mytestwidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/appwidget_scene" />
+        </receiver>
+
+        <activity
+            android:name=".NFCTestActivity"
+            android:label="@string/title_activity_nfctest"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+                <!--<data android:mimeType="text/plain" />-->
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:host="ext"
+                    android:pathPrefix="/wulian:scene"
+                    android:scheme="vnd.android.nfc" />
+            </intent-filter>
+            <!--<meta-data-->
+            <!--android:name="android.nfc.action.TECH_DISCOVERED"-->
+            <!--android:resource="@xml/nfc_tech_filter" />-->
+        </activity>
+
+        <activity
+            android:name=".NFCWriteActivity"
+            android:launchMode="singleTop"></activity>
+    </application>
+
+</manifest>
