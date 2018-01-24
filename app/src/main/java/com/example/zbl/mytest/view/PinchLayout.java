@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 
 /**
@@ -26,8 +25,6 @@ public class PinchLayout extends FrameLayout {
     private float initX, initY, oX, oY;
     private volatile boolean isPinchBegin = false;
 
-    private TranslateAnimation translateAnimation;
-
     public PinchLayout(@NonNull Context context) {
         super(context);
         init(context);
@@ -44,13 +41,12 @@ public class PinchLayout extends FrameLayout {
     }
 
     private void init(Context context) {
-        translateAnimation = new TranslateAnimation(0, 0, 0, 0);
         onScaleGestureListener = new ScaleGestureDetector.OnScaleGestureListener() {
             @Override
             public boolean onScale(ScaleGestureDetector detector) {
                 childView = getChildAt(0);
                 if (childView != null) {
-                    Log.i(TAG, "FocusX:" + detector.getFocusX() + ",FocusY:" + detector.getFocusY()
+                    showLog("FocusX:" + detector.getFocusX() + ",FocusY:" + detector.getFocusY()
                             + ",ScaleFactor:" + detector.getScaleFactor()
                             + ",SpanX" + detector.getCurrentSpanX() + ",SpanY" + detector.getCurrentSpanY());
                     FrameLayout.LayoutParams layoutParams = (LayoutParams) childView.getLayoutParams();
@@ -86,7 +82,7 @@ public class PinchLayout extends FrameLayout {
 
             @Override
             public boolean onScaleBegin(ScaleGestureDetector detector) {
-                Log.i(TAG, "onScaleBegin");
+                showLog("onScaleBegin");
                 isPinchBegin = true;
                 childView = getChildAt(0);
                 if (childView != null) {
@@ -120,14 +116,14 @@ public class PinchLayout extends FrameLayout {
         if (childView != null && event.getPointerCount() == 1) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    Log.i(TAG, "on ACTION_DOWN");
+                    showLog("on ACTION_DOWN");
                     initX = event.getX();
                     initY = event.getY();
                     oX = childView.getX();
                     oY = childView.getY();
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    Log.i(TAG, "on ACTION_MOVE");
+                    showLog("on ACTION_MOVE");
                     if (!isPinchBegin) {
                         float x = oX + event.getX() - initX;
                         float y = oY + event.getY() - initY;
@@ -136,12 +132,12 @@ public class PinchLayout extends FrameLayout {
                     break;
                 case MotionEvent.ACTION_UP:
                 case MotionEvent.ACTION_CANCEL:
-                    Log.i(TAG, "on ACTION_UP");
+                    showLog("on ACTION_UP");
                     isPinchBegin = false;
                     setChildViewLocation(childView.getX(), childView.getY(), childView.getWidth(), childView.getHeight(), "手指抬起");
                     break;
                 default:
-                    Log.i(TAG, "on ACTION_default");
+                    showLog("on ACTION_default");
                     break;
             }
         }
@@ -173,6 +169,10 @@ public class PinchLayout extends FrameLayout {
         }
         childView.setX(x);
         childView.setY(y);
-        Log.i(TAG, tag + "  x:" + x + ",y:" + y + ",width:" + width + ",height:" + height);
+        showLog(tag + "  x:" + x + ",y:" + y + ",width:" + width + ",height:" + height);
+    }
+
+    private void showLog(String msg) {
+        Log.i(TAG, msg);
     }
 }
