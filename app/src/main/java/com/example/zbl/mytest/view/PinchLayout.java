@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 
 /**
@@ -25,6 +26,8 @@ public class PinchLayout extends FrameLayout {
     private float initX, initY, oX, oY;
     private volatile boolean isPinchBegin = false;
 
+    private TranslateAnimation translateAnimation;
+
     public PinchLayout(@NonNull Context context) {
         super(context);
         init(context);
@@ -41,6 +44,7 @@ public class PinchLayout extends FrameLayout {
     }
 
     private void init(Context context) {
+        translateAnimation = new TranslateAnimation(0, 0, 0, 0);
         onScaleGestureListener = new ScaleGestureDetector.OnScaleGestureListener() {
             @Override
             public boolean onScale(ScaleGestureDetector detector) {
@@ -60,7 +64,7 @@ public class PinchLayout extends FrameLayout {
                         layoutParams.width = width;
                         layoutParams.height = height;
                         childView.setLayoutParams(layoutParams);
-                        setChildViewLocation(childView.getX(), childView.getY(), width, height);
+                        setChildViewLocation(childView.getX(), childView.getY(), width, height, "高度超出");
                     } else {
                         if (width >= getWidth()) {
                             layoutParams.width = width;
@@ -68,12 +72,12 @@ public class PinchLayout extends FrameLayout {
                             childView.setLayoutParams(layoutParams);
                             float x = focusX - translateX * scale;
                             float y = focusY - translateY * scale;
-                            setChildViewLocation(x, y, width, height);
+                            setChildViewLocation(x, y, width, height, "宽度超出");
                         } else {
                             layoutParams.width = getWidth();
                             layoutParams.height = getWidth() * height / width;
                             childView.setLayoutParams(layoutParams);
-                            setChildViewLocation(0, childView.getY(), layoutParams.width, layoutParams.height);
+                            setChildViewLocation(0, childView.getY(), layoutParams.width, layoutParams.height, "宽度太小");
                         }
                     }
                 }
@@ -127,20 +131,24 @@ public class PinchLayout extends FrameLayout {
                     if (!isPinchBegin) {
                         float x = oX + event.getX() - initX;
                         float y = oY + event.getY() - initY;
-                        setChildViewLocation(x, y, childView.getWidth(), childView.getHeight());
+                        setChildViewLocation(x, y, childView.getWidth(), childView.getHeight(), "单点移动");
                     }
                     break;
                 case MotionEvent.ACTION_UP:
                 case MotionEvent.ACTION_CANCEL:
                     Log.i(TAG, "on ACTION_UP");
                     isPinchBegin = false;
+                    setChildViewLocation(childView.getX(), childView.getY(), childView.getWidth(), childView.getHeight(), "手指抬起");
+                    break;
+                default:
+                    Log.i(TAG, "on ACTION_default");
                     break;
             }
         }
         return scaleGestureDetector.onTouchEvent(event);
     }
 
-    private void setChildViewLocation(float x, float y, int width, int height) {
+    private void setChildViewLocation(float x, float y, int width, int height, String tag) {
         if (x > 0) {
             x = 0;
         }
@@ -155,14 +163,16 @@ public class PinchLayout extends FrameLayout {
                 y = getHeight() - height;
             }
         } else {
-            if (y < 0) {
-                y = 0;
-            }
-            if (y + height > getHeight()) {
-                y = getHeight() - height;
-            }
+//            if (y < 0) {
+//                y = 0;
+//            }
+//            if (y + height > getHeight()) {
+//                y = getHeight() - height;
+//            }
+            y = (getHeight() - height) / 2;//画面高度小于容器时，画面Y维度居中
         }
         childView.setX(x);
         childView.setY(y);
+        Log.i(TAG, tag + "  x:" + x + ",y:" + y + ",width:" + width + ",height:" + height);
     }
 }
