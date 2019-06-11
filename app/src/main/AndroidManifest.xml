@@ -18,20 +18,25 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".MainActivity">
+
+        </activity>
+        <activity android:name=".ViewTestActivity" />
+        <activity android:name=".PinchViewActivity">
+
+        </activity>
+        <activity android:name=".SocketTestActivity" />
+        <activity android:name=".MulticastSocketTestActivity" />
+        <activity android:name=".ORMTestActivity" />
+        <activity android:name=".TestEquesActivity">
+
+        </activity>
+        <activity android:name=".ShowTestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ViewTestActivity" />
-        <activity android:name=".PinchViewActivity">
-        </activity>
-        <activity android:name=".SocketTestActivity" />
-        <activity android:name=".MulticastSocketTestActivity" />
-        <activity android:name=".ORMTestActivity" />
-        <activity android:name=".TestEquesActivity"></activity>
-        <activity android:name=".ShowTestActivity" />
         <activity
             android:name=".AutoScrollViewActivity"
             android:label="@string/title_activity_auto_scroll_view"
@@ -71,7 +76,9 @@
 
         <activity
             android:name=".NFCWriteActivity"
-            android:launchMode="singleTop"></activity>
+            android:launchMode="singleTop">
+
+        </activity>
     </application>
 
 </manifest>
