@@ -2,11 +2,12 @@ package com.example.zbl.mytest;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.zbl.mytest.utils.DisplayUtil;
 import com.example.zbl.mytest.view.PinchLayout;

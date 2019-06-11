@@ -1,12 +1,12 @@
 package com.example.zbl.mytest;
 
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.example.zbl.mytest.bean.GatewayBean;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;

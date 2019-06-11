@@ -1,7 +1,8 @@
 package com.example.zbl.mytest.socket;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.example.zbl.mytest.socket.receiver.ISocketReceiver;
 

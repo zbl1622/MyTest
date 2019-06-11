@@ -1,6 +1,6 @@
 package com.example.zbl.mytest.socket.receiver;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.example.zbl.mytest.socket.SocketClient;
 import com.example.zbl.mytest.utils.DesUtil;
