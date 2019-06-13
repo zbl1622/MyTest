@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.zbl.mytest.view.HomeMonitorView;
+import com.example.zbl.mytest.view.WaveSeekbarView;
 
 /**
  * Created by zbl on 2017/7/20.
@@ -20,7 +20,7 @@ public class ShowTestActivity extends AppCompatActivity {
 
     private Context context;
     private TextView tv_test;
-    private HomeMonitorView view_monitor;
+    private WaveSeekbarView view_custom;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class ShowTestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_showtest);
         tv_test = (TextView) findViewById(R.id.tv_test);
         testShow();
-        view_monitor = findViewById(R.id.view_monitor);
+        view_custom = findViewById(R.id.view_custom);
     }
 
     private void testShow() {
@@ -56,14 +56,12 @@ public class ShowTestActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         Log.i(TAG, "onPause");
-        view_monitor.stopAnimation();
         super.onPause();
     }
 
     @Override
     protected void onResume() {
         Log.i(TAG, "onResume");
-        view_monitor.startAnimation();
         super.onResume();
     }
 
